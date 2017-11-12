@@ -1,91 +1,262 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./mymap.js"></script>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Simple Polygon</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./mymap.js"></script>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Simple Polygon</title>
+  <style>
+  /* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  #map {
+    height: 100%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 10%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
       }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-      // This example creates a simple polygon representing the Bermuda Triangle.
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
-          center: {lat: 22.283688941565, lng: 114.11452476514},
-          mapTypeId: 'terrain'
-        });
+  </style>
+</head>
+<body>
+  <div id="floating-panel">
+      <input onclick="btn2006();" type=button value="2006">
+      <input onclick="btn2011();" type=button value="2011">
+      <input onclick="btn2016();" type=button value="2016">
+    </div>
+  <div id="map"></div>
+  <script>
 
-        // Define the LatLng coordinates for the polygon's path.
-        /////////////////////////////////////////////////////////
-        function readeachcoor(data){
-          var plt = [];
-          for (var district in data.features){
-            plt.push(readcoordinates(data.features[district]));
-          }
-          return plt;
-        }
+  /////////////////////////////////////////////////////////
+function list4popul(data, year){
+  var listofpopul = []
+  for (var district in data.features){
+    listofpopul.push(data.features[district].properties[year])
+  }
+  return listofpopul;
+}
 
-        function readcoordinates(district){
-          return district.geometry.coordinates[0]
-        }
+function popul_color(districtyear){
+  // found the maximum population among the districts
+  var RGBcolor=[];
+  var max_population = 0
+  for (var district in districtyear){
+    if (districtyear[district] > max_population){
+    max_population = districtyear[district];
+  }
+  var ratio = 255 / max_population;
+  RGBcolor.push(Math.round(ratio*districtyear[district]).toString(16));
+}
+  return RGBcolor;
+}
+  function readeachcoor(data){
+    var plt = [];
+    for (var district in data.features){
+      plt.push(readcoordinates(data.features[district]));
+    }
+    return plt;
+  }
 
-        function readmultipoly(points){
-          var multipoly = [];
-          for (var polygon in points){
-            multipoly.push(readpolygon(points[polygon]));
-          }
-          return multipoly
-        }
+  function readcoordinates(district){
+    return district.geometry.coordinates[0]
+  }
 
-        function readpolygon(poly){
-          polygon = [];
-          for (var point in poly){
-            polygon.push(swaplatlng(poly[point]));
-          }
-          return polygon
-        }
+  function readmultipoly(points){
+    var multipoly = [];
+    for (var polygon in points){
+      multipoly.push(readpolygon(points[polygon]));
+    }
+    return multipoly
+  }
 
-        function swaplatlng(LatLng){
-          return ({lat: LatLng[1], lng: LatLng[0]})
-        }
-        //////////////////////////////////////////////////////////
-        for (var district in data.features){
-        var plt = readcoordinates(data.features[district]);
-        var poly = readmultipoly(plt);
-        var triangleCoords = poly;
+  function readpolygon(poly){
+    polygon = [];
+    for (var point in poly){
+      polygon.push(swaplatlng(poly[point]));
+    }
+    return polygon
+  }
 
-        // Construct the polygon.
-        var bermudaTriangle = new google.maps.Polygon({
-          paths: triangleCoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        bermudaTriangle.setMap(map);
-      }
+  function swaplatlng(LatLng){
+    return ({lat: LatLng[1], lng: LatLng[0]})
+  }
+  //////////////////////////////////////////////////////////
 
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxo7iwO77XS_EDg6fEcCt1ne148127wh0&callback=initMap">
-    </script>
-  </body>
+  // This example creates a simple polygon representing the Bermuda Triangle.
+  var map;
+  var Triangle2006= [],Triangle2011=[],Triangle2016=[];
+  function initMap() {
+    var myLatLng = {lat: 22.329117147217463, lng: 114.136962890625};
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 11,
+      center: myLatLng,
+      mapTypeId: 'terrain'
+    });
+/*
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!',
+        draggable: true,
+        geodesic: true
+      }); */
+
+    var population2006 = [];
+    population2006 = list4popul(data, 'population2006')
+    population2011 = list4popul(data, 'population2011')
+    population2016 = list4popul(data, 'population2016')
+    //console.log(population2006);
+    var RGBcolor = [];
+    var RGBcolor2006 = [];
+    var RGBcolor2011 = [];
+    var RGBcolor2016 = [];
+    RGBcolor2006 = popul_color(population2006);
+    RGBcolor2011 = popul_color(population2011);
+    RGBcolor2016 = popul_color(population2016);
+    //console.log(RGBcolor);
+
+    // Define the LatLng coordinates for the polygon's path.
+
+    for (var district in data.features){
+      var plt = readcoordinates(data.features[district]);
+      var poly = readmultipoly(plt);
+      var triangleCoords = poly;
+
+      // Construct the polygon.
+/*      var bermudaTriangle = new google.maps.Polygon({
+        paths: triangleCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        fillColor: '#'+RGBcolor[district]+'0000',
+        fillOpacity: 0.6,
+        draggable: false,
+        geodesic: false,
+        customInfo: [
+          data.features[district].properties.ename,
+          data.features[district].properties.cname]
+      }); */
+      Triangle2006[district] = new google.maps.Polygon({
+        paths: triangleCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        fillColor: '#'+RGBcolor2006[district]+'0000',
+        fillOpacity: 0.6,
+        draggable: false,
+        geodesic: false,
+        customInfo: [
+          data.features[district].properties.ename,
+          data.features[district].properties.cname,
+          data.features[district].properties.population2006
+        ]
+      });
+      Triangle2011[district] = new google.maps.Polygon({
+        paths: triangleCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        fillColor: '#'+RGBcolor2011[district]+'0000',
+        fillOpacity: 0.6,
+        draggable: false,
+        geodesic: false,
+        customInfo: [
+          data.features[district].properties.ename,
+          data.features[district].properties.cname,
+          data.features[district].properties.population2011]
+      });
+      Triangle2016[district] = new google.maps.Polygon({
+        paths: triangleCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        fillColor: '#'+RGBcolor2016[district]+'0000',
+        fillOpacity: 0.6,
+        draggable: false,
+        geodesic: false,
+        customInfo: [
+          data.features[district].properties.ename,
+          data.features[district].properties.cname,
+          data.features[district].properties.population2016]
+      });
+      Triangle2016[district].setMap(null);
+      Triangle2011[district].setMap(null);
+      Triangle2006[district].setMap(map);
+      // Add a listener for the click event.
+      Triangle2016[district].addListener('click', showArrays);
+      Triangle2011[district].addListener('click', showArrays);
+      Triangle2006[district].addListener('click', showArrays);
+      infoWindow = new google.maps.InfoWindow;
+    }
+    /* @this {google.maps.Polygon} */
+    function showArrays(event) {
+      // Since this polygon has only one path, we can call getPath() to return the
+      // MVCArray of LatLngs.
+      var vertices = this.getPath();
+
+      var contentString = '<b>Bermuda Triangle polygon</b><br>' +
+      'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+      '<br>'+ 'District (English):' + this.customInfo[0] + '<br>'+
+       'District (Chinese):' + this.customInfo[1] + '<br>' +
+        'Population:' + this.customInfo[2] + '<br>';
+
+      // Iterate over the vertices.
+      /*
+      for (var i =0; i < vertices.getLength(); i++) {
+      var xy = vertices.getAt(i);
+      contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+      xy.lng();
+    }
+    */
+
+    // Replace the info window's content and position.
+    infoWindow.setContent(contentString);
+    infoWindow.setPosition(event.latLng);
+    infoWindow.open(map);
+  }
+}
+
+  function btn2006() {
+    for (var district in data.features){
+    Triangle2016[district].setMap(null);
+    Triangle2011[district].setMap(null);
+    Triangle2006[district].setMap(map);
+  }
+  }
+
+  function btn2011() {
+    for (var district in data.features){
+    Triangle2016[district].setMap(null);
+    Triangle2011[district].setMap(map);
+    Triangle2006[district].setMap(null);
+  }
+  }
+
+  function btn2016() {
+    for (var district in data.features){
+    Triangle2016[district].setMap(map);
+    Triangle2011[district].setMap(null);
+    Triangle2006[district].setMap(null);
+  }
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxo7iwO77XS_EDg6fEcCt1ne148127wh0&callback=initMap">
+</script>
+</body>
 </html>

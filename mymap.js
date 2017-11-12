@@ -1,5 +1,5 @@
 var data =
-  {
+{
   "type": "FeatureCollection",
   "features":
   [
@@ -9,7 +9,10 @@ var data =
         "region": "Hong-Kong-Island",
         "ename": "Central and Western",
         "cname": "中西區",
-        "population": 252637
+        "population": 252637,
+        "population2006":250064,
+        "population2011":251519,
+        "population2016":243266
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -56,7 +59,7 @@ var data =
                 114.11452476514,
                 22.283688941565
               ]
-          ],
+            ],
             [
               [
                 114.16757989588,
@@ -547,7 +550,10 @@ var data =
         "region": "Kowloon",
         "ename": "Kowloon City",
         "cname": "九龍城區",
-        "population": 413193
+        "population": 413193,
+        "population2006":362501,
+        "population2011":377351,
+        "population2016":418732
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1057,7 +1063,10 @@ var data =
         "region": "New-Territories",
         "ename": "Islands",
         "cname": "離島區",
-        "population": 148368
+        "population": 148368,
+        "population2006":137122,
+        "population2011":141327,
+        "population2016":156801
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9157,7 +9166,10 @@ var data =
         "region": "Hong-Kong-Island",
         "ename": "Eastern",
         "cname": "東區",
-        "population": 557759
+        "population": 557759,
+        "population2006":587690,
+        "population2011":588094,
+        "population2016":555034
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9877,7 +9889,10 @@ var data =
         "region": "New-Territories",
         "ename": "Kwai Tsing",
         "cname": "葵青區",
-        "population": 512805
+        "population": 512805,
+        "population2006":523300,
+        "population2011":511167,
+        "population2016":520572
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10885,7 +10900,10 @@ var data =
         "region": "Kowloon",
         "ename": "Kwun Tong",
         "cname": "觀塘區",
-        "population": 640001
+        "population": 640001,
+        "population2006":587423,
+        "population2011":622152,
+        "population2016":648541
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11395,7 +11413,10 @@ var data =
         "region": "Hong-Kong-Island",
         "ename": "Southern",
         "cname": "南區",
-        "population": 277098
+        "population": 277098,
+        "population2006":275162,
+        "population2011":278655,
+        "population2016":274994
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14153,7 +14174,10 @@ var data =
         "region": "Kowloon",
         "ename": "Sham Shui Po",
         "cname": "深水埗區",
-        "population": 401292
+        "population": 401292,
+        "population2006":365540,
+        "population2011":380855,
+        "population2016":405869
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14667,7 +14691,10 @@ var data =
         "region": "Kowloon",
         "ename": "Yau Tsim Mong",
         "cname": "油尖旺區",
-        "population": 323098
+        "population": 323098,
+        "population2006":280548,
+        "population2011":307878,
+        "population2016":342970
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15091,7 +15118,10 @@ var data =
         "region": "New-Territories",
         "ename": "North",
         "cname": "北區",
-        "population": 314410
+        "population": 314410,
+        "population2006":280730,
+        "population2011":304134,
+        "population2016":315270
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19699,7 +19729,10 @@ var data =
         "region": "New-Territories",
         "ename": "Sai Kung",
         "cname": "西貢區",
-        "population": 465490
+        "population": 465490,
+        "population2006":406442,
+        "population2011":436627,
+        "population2016":461864
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28191,7 +28224,10 @@ var data =
         "region": "New-Territories",
         "ename": "Tsuen Wan",
         "cname": "荃灣區",
-        "population": 309878
+        "population": 309878,
+        "population2006":288728,
+        "population2011":304637,
+        "population2016":318916
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30247,7 +30283,10 @@ var data =
         "region": "New-Territories",
         "ename": "Tai Po",
         "cname": "大埔區",
-        "population": 310277
+        "population": 310277,
+        "population2006":293542,
+        "population2011":296853,
+        "population2016":303926
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -35397,7 +35436,10 @@ var data =
         "region": "New-Territories",
         "ename": "Sha Tin",
         "cname": "沙田區",
-        "population": 663995
+        "population": 663995,
+        "population2006":607544,
+        "population2011":630273,
+        "population2016":659794
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -36969,7 +37011,10 @@ var data =
         "region": "Hong-Kong-Island",
         "ename": "Wan Chai",
         "cname": "灣仔區",
-        "population": 183366
+        "population": 183366,
+        "population2006":155196,
+        "population2011":152608,
+        "population2016":180123
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -37415,7 +37460,10 @@ var data =
         "region": "Kowloon",
         "ename": "Wong Tai Sin",
         "cname": "黃大仙區",
-        "population": 426892
+        "population": 426892,
+        "population2006":423521,
+        "population2011":420183,
+        "population2016":425235
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -37773,7 +37821,10 @@ var data =
         "region": "New-Territories",
         "ename": "Tuen Mun",
         "cname": "屯門區",
-        "population": 501579
+        "population": 501579,
+        "population2006":502035,
+        "population2011":487546,
+        "population2016":489299
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -39453,7 +39504,10 @@ var data =
         "region": "New-Territories",
         "ename": "Yuen Long",
         "cname": "元朗區",
-        "population": 609211
+        "population": 609211,
+        "population2006":534192,
+        "population2011":578529,
+        "population2016":614178
       },
       "geometry": {
         "type": "MultiPolygon",
